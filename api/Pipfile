@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "==2.3.3"
+gunicorn = "*"
+python-dotenv="*"
+PyJWT="*"
+cryptography="*"
+
+[dev-packages]
+black = "==24.3.0"
+
+[scripts]
+main = "python -m ghas-serverless-permissions-agent --debug"
+fmt = "python -m black ."
+lint = "python -m black --check ."
+# Run flask app
+watch = "gunicorn ghas-serverless-permissions-agent.app:app --reload --bind 0.0.0.0:9000"
+develop = "gunicorn ghas-serverless-permissions-agent.app:app --bind 0.0.0.0:9000 --log-level=debug --workers=4"
+production = "gunicorn wsgi:app --bind 0.0.0.0:9000 --workers=4"
+# Tests
+test-e2e = "python -m ghas-serverless-permissions-agent --test-mode"
